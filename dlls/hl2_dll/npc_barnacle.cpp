@@ -1025,7 +1025,7 @@ bool CBarnacleTongueTip::CreateSpring( CBaseAnimating *pTongueRoot )
 	Assert( pPhysObject );
 
 	// Root has huge mass, tip has little
-	pRootPhysObject->SetMass( 1e6 );
+	pRootPhysObject->SetMass( 1e6 ); // VXP: FIXME: A million (1 000 000) kg? Shouldn't this be about i.e. 1e5, should it?
 	pPhysObject->SetMass( 100 );
 	float damping = 3;
 	pPhysObject->SetDamping( &damping, &damping );

@@ -53,10 +53,8 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
       <StringPooling>true</StringPooling>
       <FunctionLevelLinking>true</FunctionLevelLinking>
-      <Optimization>MaxSpeed</Optimization>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <WarningLevel>Level4</WarningLevel>
       <AdditionalIncludeDirectories>..\ivp\IVP_INTERN;..\ivp\IVP_COLLISION;..\ivp\IVP_PHYSICS;..\ivp\IVP_SURFACE_MANAGER;..\ivp\IVP_UTILITY;..\ivp\IVP_CONTROLLER;..\ivp\IVP_COMPACT_BUILDER;..\ivp\havana\havok;..\ivp\havana;..\public;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -66,6 +64,8 @@
       <PrecompiledHeaderOutputFile>.\Release\vphysics.pch</PrecompiledHeaderOutputFile>
       <ObjectFileName>.\Release\</ObjectFileName>
       <ProgramDataBaseFileName>.\Release\</ProgramDataBaseFileName>
+      <OmitFramePointers>true</OmitFramePointers>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
     </ClCompile>
     <Midl>
       <SuppressStartupBanner>true</SuppressStartupBanner>
