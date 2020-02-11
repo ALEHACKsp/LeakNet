@@ -122,7 +122,7 @@
       <MinimalRebuild>true</MinimalRebuild>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <AdditionalIncludeDirectories>../../ivp_collision;../../ivp_controller;../../ivp_intern;../../ivp_physics;../../ivp_surface_manager;../../ivp_utility;../../havana/havok;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_WINDOWS;DEBUG;WIN32;IVP_VERSION_SDK;HAVANA_CONSTRAINTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_WINDOWS;DEBUG;_DEBUG;WIN32;IVP_VERSION_SDK;HAVANA_CONSTRAINTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AssemblerListingLocation>.\..\..\obj\win32_debug\havana_constraints\</AssemblerListingLocation>
       <BrowseInformation>true</BrowseInformation>
       <PrecompiledHeaderOutputFile>.\..\..\obj\win32_debug\havana_constraints\havana_constraints.pch</PrecompiledHeaderOutputFile>

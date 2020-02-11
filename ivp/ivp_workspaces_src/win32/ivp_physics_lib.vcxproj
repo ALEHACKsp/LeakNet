@@ -111,7 +111,7 @@
       <MinimalRebuild>true</MinimalRebuild>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <AdditionalIncludeDirectories>../../ivp_collision;../../ivp_controller;../../ivp_intern;../../ivp_physics;../../ivp_surface_manager;../../ivp_utility;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>DEBUG;HAVOK_MOPP;_LIB;WIN32;IVP_VERSION_SDK;HAVANA_CONSTRAINTS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>DEBUG;_DEBUG;HAVOK_MOPP;_LIB;WIN32;IVP_VERSION_SDK;HAVANA_CONSTRAINTS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AssemblerListingLocation>.\..\..\obj\win32_debug\ivp_physics\</AssemblerListingLocation>
       <BrowseInformation>true</BrowseInformation>
       <PrecompiledHeaderOutputFile>.\..\..\obj\win32_debug\ivp_physics\ivp_physics_lib.pch</PrecompiledHeaderOutputFile>

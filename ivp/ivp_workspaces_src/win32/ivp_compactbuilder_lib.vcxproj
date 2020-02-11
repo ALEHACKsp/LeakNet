@@ -200,7 +200,7 @@ if exist "$(TargetDir)$(TargetName).pdb" copy "$(TargetDir)$(TargetName).pdb" ..
       <MinimalRebuild>true</MinimalRebuild>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <AdditionalIncludeDirectories>../../ivp_surface_manager;../../ivp_physics;../../ivp_compact_builder;../../ivp_utility;../../ivp_collision;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>DEBUG;_LIB;WIN32;IVP_VERSION_SDK;HAVOK_MOPP;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>DEBUG;_DEBUG;_LIB;WIN32;IVP_VERSION_SDK;HAVOK_MOPP;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AssemblerListingLocation>.\..\..\obj\win32_debug\ivp_compactbuilder\</AssemblerListingLocation>
       <BrowseInformation>true</BrowseInformation>
       <PrecompiledHeaderOutputFile>.\..\..\obj\win32_debug\ivp_compactbuilder\ivp_compactbuilder_lib.pch</PrecompiledHeaderOutputFile>
