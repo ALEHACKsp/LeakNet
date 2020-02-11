@@ -45,7 +45,7 @@
        Exactly DEBUG or NDEBUG has to be defined, check Makefile
 #endif
 
-#define CORE *(int *)0 = 0  /* send fatal signal */
+#define CORE __asm { int 3 }  // VXP: Step into the debugger
 
 #if defined (PSXII)
 #	if defined (__MWERKS__)
