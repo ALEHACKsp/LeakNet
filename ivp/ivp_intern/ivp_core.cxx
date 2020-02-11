@@ -590,10 +590,20 @@ void IVP_Core::rot_push_core_cs(const IVP_U_Float_Point *rot_impulse_cs)
 // #+# too many calls to this function
 void IVP_Core::commit_all_async_pushes(){   
 
-    this->rot_speed.add(&this->rot_speed_change);
-    this->speed.add(&this->speed_change);
-    this->speed_change.set_to_zero(); 
+    // VXP: Suggestion from DmitRex
+    // Clamping the change speeds in (-MAX_PLAUSIBLE_LEN, MAX_PLAUSIBLE_LEN)
+    IVP_DOUBLE tmpRotSpeedChangeLen = this->rot_speed_change.real_length();
+    IVP_DOUBLE tmpSpeedChangeLen = this->speed_change.real_length();
+
+    if ( !isnan( tmpRotSpeedChangeLen ) && tmpRotSpeedChangeLen < MAX_PLAUSIBLE_LEN && tmpRotSpeedChangeLen > -MAX_PLAUSIBLE_LEN )
+        this->rot_speed.add( &this->rot_speed_change );
+
+    if ( !isnan( tmpSpeedChangeLen ) && tmpSpeedChangeLen < MAX_PLAUSIBLE_LEN && tmpSpeedChangeLen > -MAX_PLAUSIBLE_LEN )
+        this->speed.add( &this->speed_change );
+
     this->rot_speed_change.set_to_zero();
+    this->speed_change.set_to_zero();
+
     IVP_IF(1){
     	core_plausible_check();
     }
@@ -1121,6 +1131,8 @@ void IVP_Core::set_mass(IVP_FLOAT new_mass){
 }
 
 void IVP_Core::core_plausible_check() {
+/*  // VXP: We don't need this anymore, since commit_all_async_pushes() has the code for preventing it from happen
+    // Commenting that out so sqrt doesn't calculate again for rot_speed_change and speed_change
     IVP_DOUBLE rot_change_len,trans_change_len;
     rot_change_len=rot_speed_change.real_length();
     trans_change_len=speed_change.real_length();
@@ -1128,6 +1140,7 @@ void IVP_Core::core_plausible_check() {
     IVP_ASSERT(trans_change_len<MAX_PLAUSIBLE_LEN);
     IVP_ASSERT(rot_change_len>-MAX_PLAUSIBLE_LEN);
     IVP_ASSERT(trans_change_len>-MAX_PLAUSIBLE_LEN);
+*/
 
     IVP_DOUBLE rot_len,trans_len;
     rot_len=rot_speed.real_length();
