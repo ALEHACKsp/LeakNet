@@ -36,8 +36,6 @@ public:
 	void InputTurnOn( inputdata_t &inputdata );
 	void InputToggle( inputdata_t &inputdata );
 
-	bool	ShouldSavePhysics()	{ return false; }
-	
 	enum BrushSolidities_e {
 		BRUSHSOLID_TOGGLE = 0,
 		BRUSHSOLID_NEVER  = 1,

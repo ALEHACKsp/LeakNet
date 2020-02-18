@@ -35,8 +35,6 @@ public:
 	void InputOpen( inputdata_t &inputdata );
 	void InputClose( inputdata_t &inputdata );
 	void InputSetPosition( inputdata_t &inputdata );
-
-	bool	ShouldSavePhysics()	{ return false; }
 	
 	DECLARE_DATADESC();
 
