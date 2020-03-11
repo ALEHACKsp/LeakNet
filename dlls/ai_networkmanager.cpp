@@ -24,7 +24,7 @@
 #include "tier0/memdbgon.h"
 
 // Increment this to force rebuilding of all networks
-#define	 AINET_VERSION_NUMBER	25
+#define	 AINET_VERSION_NUMBER	26
 
 //-----------------------------------------------------------------------------
 
@@ -2792,7 +2792,7 @@ int CAI_NetworkBuilder::ComputeConnection( CAI_Node *pSrcNode, CAI_Node *pDestNo
 		}
 
 		// Add to our list of accepable hulls
-		if (!fWalkFailed)
+		if ( !fWalkFailed && !fStandFailed )
 		{
 			result |= bits_CAP_MOVE_GROUND;
 			DebugConnectMsg( srcId, destId, "      Nodes connect for ground movement\n" );
