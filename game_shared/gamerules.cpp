@@ -250,7 +250,7 @@ END_NETWORK_TABLE()
 						CTakeDamageInfo adjustedInfo = info;
 						adjustedInfo.SetDamage( flAdjustedDamage );
 
-						Vector dir = tr.endpos - vecSrc;
+						Vector dir = vecSpot - vecSrc;
 						VectorNormalize( dir );
 
 						// If we don't have a damage force, manufacture one
@@ -261,9 +261,11 @@ END_NETWORK_TABLE()
 						else
 						{
 							// Assume the force passed in is the maximum force. Decay it based on falloff.
+							Assert( adjustedInfo.GetDamageForce()[0] != 0.0f );
 							float flForce = adjustedInfo.GetDamageForce().Length() * falloff;
 							adjustedInfo.SetDamageForce( dir * flForce );
 							adjustedInfo.SetDamagePosition( vecSrc );
+							Assert( adjustedInfo.GetDamageForce()[0] != 0.0f );
 						}
 
 						if (tr.fraction != 1.0)

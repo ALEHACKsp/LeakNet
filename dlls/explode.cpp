@@ -345,6 +345,7 @@ void ExplosionCreate( const Vector &center, const QAngle &angles, CBaseEntity *p
 	}
 
 	//For E3, no sparks
+	// VXP: TODO: Implement spawnflags passing to ExplosionCreate() here
 	pExplosion->AddSpawnFlags( SF_ENVEXPLOSION_NOSPARKS | SF_ENVEXPLOSION_NODLIGHTS | SF_ENVEXPLOSION_NOSMOKE );
 
 	if ( radius )

@@ -69,6 +69,9 @@ void IVP_Core::get_surface_speed_on_test(const IVP_U_Float_Point *point_cs,
     speed_cs.inline_calc_cross_product(rot_speed_cs,point_cs);
     this->m_world_f_core_last_psi.inline_vmult3(&speed_cs,speed_out_ws); // transform to world coords
     speed_out_ws->add(center_speed_ws);
+
+    IVP_U_Float_Point test_point = speed_out_ws;
+    IVP_ASSERT( !isnan( test_point.k[0] ) && !isnan( test_point.k[1] ) && !isnan( test_point.k[2] ) );
 }
 
 void IVP_Core::get_surface_speed_ws( const IVP_U_Point *position_ws_in, IVP_U_Float_Point *speed_ws_out) {
@@ -784,10 +787,13 @@ IVP_Vec_PCore::IVP_Vec_PCore(const IVP_Core *pc,const IVP_U_Float_Point *p){
 }
 
 void IVP_Core::calc_calc(){
-    IVP_ASSERT(get_rot_inertia()->real_length() > P_DOUBLE_EPS);
     IVP_U_Float_Hesse *iri = (IVP_U_Float_Hesse *)get_inv_rot_inertia();
-
     const IVP_U_Float_Point *ri = get_rot_inertia();
+
+    IVP_DOUBLE ri_rl = ri->real_length();
+    IVP_ASSERT( !isnan( ri_rl ) );
+    IVP_ASSERT( !isinf( ri_rl ) );
+    IVP_ASSERT( ri_rl > P_DOUBLE_EPS );
 
     iri->set( 1.0f/ri->k[0],1.0f/ri->k[1], 1.0f/ri->k[2]);
     iri->hesse_val = 1.0f/get_mass();
@@ -1123,16 +1129,18 @@ void IVP_Core::update_exact_mindist_events_of_core(){
 }
 
 void IVP_Core::set_mass(IVP_FLOAT new_mass){
-  IVP_DOUBLE factor = new_mass/ this->get_mass();
-  IVP_U_Float_Hesse *ri = (IVP_U_Float_Hesse *)get_rot_inertia();
-  ri->mult( factor );
-  ri->hesse_val = new_mass;
-  this->calc_calc();
+    IVP_FLOAT old_mass = this->get_mass();
+    IVP_DOUBLE factor = 1.0f;
+    if ( old_mass != 0.0f )
+        factor = new_mass / old_mass;
+
+    IVP_U_Float_Hesse *ri = (IVP_U_Float_Hesse *)this->get_rot_inertia();
+    ri->mult( factor );
+    ri->hesse_val = new_mass;
+    this->calc_calc();
 }
 
 void IVP_Core::core_plausible_check() {
-/*  // VXP: We don't need this anymore, since commit_all_async_pushes() has the code for preventing it from happen
-    // Commenting that out so sqrt doesn't calculate again for rot_speed_change and speed_change
     IVP_DOUBLE rot_change_len,trans_change_len;
     rot_change_len=rot_speed_change.real_length();
     trans_change_len=speed_change.real_length();
@@ -1140,7 +1148,6 @@ void IVP_Core::core_plausible_check() {
     IVP_ASSERT(trans_change_len<MAX_PLAUSIBLE_LEN);
     IVP_ASSERT(rot_change_len>-MAX_PLAUSIBLE_LEN);
     IVP_ASSERT(trans_change_len>-MAX_PLAUSIBLE_LEN);
-*/
 
     IVP_DOUBLE rot_len,trans_len;
     rot_len=rot_speed.real_length();

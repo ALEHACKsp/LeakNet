@@ -632,7 +632,13 @@ void CShadowController::AttachObject( void )
 	}
 	if ( !m_allowPhysicsMovement )
 	{
-		m_pObject->SetMass( 1e6f );
+		// VXP: Was 1e6f, better be 1e5f, since i.e. vbsp/ivp.cpp has 1e5 mass clamp in it.
+		// But even 1e4f gives an infinite value at IVP_Core::set_mass()
+		// m_pObject->SetMass( .01f );
+
+		// VXP: Figured out that 1e3f must be the highest possible value to not causing crash.
+		// Hopefully, it will stay as is
+		m_pObject->SetMass( 1e3f );
 		//pCore->inv_rot_inertia.hesse_val = 0.0f;
 		m_pObject->EnableGravity( false );
 	}

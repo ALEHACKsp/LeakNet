@@ -294,6 +294,13 @@ void IVP_Impact_Solver::get_relative_speed_vector()
     IVP_U_Float_Point world_speed0,world_speed1;
     core[0]->get_surface_speed_on_test(obj_point[0],&trans_speed[0],&rot_speed[0],&world_speed0);
     core[1]->get_surface_speed_on_test(obj_point[1],&trans_speed[1],&rot_speed[1],&world_speed1);
+
+	IVP_ASSERT( !isinf( world_speed0.k[0] ) && !isinf( world_speed0.k[1] ) && !isinf( world_speed0.k[2] ) );
+	IVP_ASSERT( !isinf( world_speed1.k[0] ) && !isinf( world_speed1.k[1] ) && !isinf( world_speed1.k[2] ) );
+
+	IVP_ASSERT( !isnan( world_speed0.k[0] ) && !isnan( world_speed0.k[1] ) && !isnan( world_speed0.k[2] ) );
+	IVP_ASSERT( !isnan( world_speed1.k[0] ) && !isnan( world_speed1.k[1] ) && !isnan( world_speed1.k[2] ) );
+
     relative_world_speed.subtract(&world_speed1,&world_speed0);
     //relative_world_speed is now relative speed seen from now still object 0
 }
@@ -309,6 +316,7 @@ void IVP_Impact_Solver::get_world_push_direction()
 
     IVP_U_Float_Point part_in_direction_surf; //decomposition of velo vec in direction normal and rest (this is the rest)
 
+	IVP_ASSERT( !isnan( relative_world_speed.k[0] ) && !isnan( relative_world_speed.k[1] ) && !isnan( relative_world_speed.k[2] ) );
     world_push_direction.set(&relative_world_speed);
     world_push_direction.fast_normize();
 
@@ -684,6 +692,11 @@ void IVP_Impact_Solver::do_impact(IVP_Core *pushed_cores[2],IVP_BOOL allow_delay
 	IVP_DOUBLE speed_parallel_mindist = relative_world_speed.dot_product(surf_normal); //normally negative value
 	printf("impact %.20G\n",speed_parallel_mindist); //@@CB
     }
+
+	IVP_ASSERT( !isnan( core[0]->rot_speed_change.k[0] ) && !isnan( core[0]->rot_speed_change.k[1] ) && !isnan( core[0]->rot_speed_change.k[2] ) );
+	IVP_ASSERT( !isnan( core[1]->rot_speed_change.k[0] ) && !isnan( core[1]->rot_speed_change.k[1] ) && !isnan( core[1]->rot_speed_change.k[2] ) );
+	IVP_ASSERT( !isnan( core[0]->speed_change.k[0] ) && !isnan( core[0]->speed_change.k[1] ) && !isnan( core[0]->speed_change.k[2] ) );
+	IVP_ASSERT( !isnan( core[1]->speed_change.k[0] ) && !isnan( core[1]->speed_change.k[1] ) && !isnan( core[1]->speed_change.k[2] ) );
     
     rot_speed[0]  .add( &core[0]->rot_speed, &core[0]->rot_speed_change);
     trans_speed[0].add( &core[0]->speed,     &core[0]->speed_change);
