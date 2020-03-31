@@ -422,7 +422,17 @@ void CPhysBox::Spawn( void )
 	SetSolid( SOLID_VPHYSICS );
 
 	SetAbsVelocity( vec3_origin );
-	SetModel( STRING( GetModelName() ) );
+
+	const char* pModelName = STRING( GetModelName() );
+	if ( Q_strcmp( pModelName, "" ) == 0 )
+	{
+		// VXP: Map developer put an empty func_physbox for some reason.
+		DevWarning( "func_physbox doesn't have any solid. Removing...\n" );
+		UTIL_Remove( this );
+		return;
+	}
+
+	SetModel( pModelName );
 	Relink();
 	SetSolid( SOLID_VPHYSICS );
 	if ( HasSpawnFlags( SF_PHYSBOX_DEBRIS ) )
